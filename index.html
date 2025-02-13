@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Image Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #canvas {
+            border: 1px solid #000;
+            margin-top: 20px;
+        }
+        #download {
+            margin-top: 20px;
+        }
+        .explanation {
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="explanation">
+        <p>This tool allows you to create a 128x128 image with any text you input. You can download the image and use it for various purposes, such as creating a newspaper that can be converted into a map in Minecraft using some plugins.</p>
+    </div>
+    <input type="text" id="textInput" placeholder="Enter your text here" oninput="generateImage()">
+    <canvas id="canvas" width="128" height="128"></canvas>
+    <a id="download" download="image.png">Download Image</a>
+
+    <script>
+        function generateImage() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const text = document.getElementById('textInput').value;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set background color
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Set text properties
+            ctx.fillStyle = '#000000';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+
+            // Draw the text with word wrapping
+            const words = text.split(' ');
+            let line = '';
+            const lineHeight = 18; // Adjust line height as needed
+            let y = 0;
+
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > canvas.width && i > 0) {
+                    ctx.fillText(line, 0, y);
+                    line = words[i] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, 0, y);
+
+            // Set the download link
+            const downloadLink = document.getElementById('download');
+            downloadLink.href = canvas.toDataURL('image/png');
+        }
+    </script>
+</body>
+</html>
