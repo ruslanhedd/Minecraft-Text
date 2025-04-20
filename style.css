@@ -1,0 +1,46 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+/* Explanation section */
+.explanation {
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the input field */
+input[type="text"] {
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Canvas styling */
+#canvas {
+    border: 1px solid #000;
+    margin-top: 20px;
+}
+
+/* Download link styling */
+#download {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+#download:hover {
+    text-decoration: underline;
+}
